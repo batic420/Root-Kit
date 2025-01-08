@@ -17,13 +17,13 @@ export class DbConfig {
         try {
             this.connection = await mysql.createConnection(defaultConfig);
         
-        await this.connection.query(`CREATE DATABSE IF NOT EXISTS ${process.env.DB_NAME}`);
+        await this.connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`);
         await this.connection.query(`USE ${process.env.DB_NAME}`);
         await this.connection.query(`CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         `);
 
