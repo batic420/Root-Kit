@@ -13,14 +13,14 @@ export class DefaultController {
         return "Hello World";
     }
 
-    public async signUp(req: Request, res: Response): Promise<User> {
+    public async signUp(email: string, password: string): Promise<User> {
         const user = new User();
-        const { email, password } = req.body;
 
         user.email = email;
         user.password = password;
 
         const result = await this.userRepo.save(user);
+        console.log(result);
 
         if (result) {
             return result;

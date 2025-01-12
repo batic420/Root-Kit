@@ -11,10 +11,10 @@ router.get("/login", (req: Request, res: Response) => {
     res.send("Login");
 });
 
-router.post("/signup", (req: Request, res: Response) => {
+router.post("/signup", async (req: Request, res: Response) => {
     try {
-        const user = defaultController.signUp(req, res);
-        res.send(200).json(user);
+        const user = await defaultController.signUp(req.body.email, req.body.password);
+        res.status(200).json(user);
     } catch (err: unknown) {
         console.log(err);
         if (err instanceof Error) {

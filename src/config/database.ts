@@ -19,7 +19,7 @@ export class DbConfig {
         
         await this.connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`);
         await this.connection.query(`USE ${process.env.DB_NAME}`);
-        await this.connection.query(`CREATE TABLE IF NOT EXISTS users (
+        await this.connection.query(`CREATE TABLE IF NOT EXISTS user (
             id INT AUTO_INCREMENT PRIMARY KEY,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
