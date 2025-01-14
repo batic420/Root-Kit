@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../config/appDataSource";
 import { User } from "../database/entities";
 import { CustomErrors } from "../config/errors";
+import { PwValidator } from "../services/validator";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const httpProblem = require('httpproblem');
@@ -14,6 +15,15 @@ export class DefaultController {
     }
 
     public async signUp(email: string, password: string): Promise<User> {
+        
+        if (!PwValidator.validatePw(password, email)) {
+            throw new httpProblem.Document({
+                type: CustomErrors.BadRequest,
+                title: 'Password does not meet requirements',
+                status: 400
+            });
+        }
+        
         const user = new User();
 
         user.email = email;
