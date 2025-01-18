@@ -1,6 +1,5 @@
 import { Request, Response, Router } from "express";
 import { defaultController } from "../controllers/controller";
-import { title } from "process";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const httpProblem = require('httpproblem');
@@ -11,8 +10,23 @@ router.get("/", (req: Request, res: Response) => {
   res.send("Hello World");
 });
 
-router.get("/login", (req: Request, res: Response) => {
-    res.send("Login");
+router.post("/login", async (req: Request, res: Response) => {
+    try {
+        const token = await defaultController.genToken(req.body.email, req.body.password);
+        res.status(200).json(token);
+    } catch (err) {
+        if (err instanceof httpProblem.Document) {
+            res.status(err.status).json({
+              type: err.type,
+              title: err.title,
+              status: err.status
+            });
+        } else if (err instanceof Error) {
+            res.status(500).json({ message: err.message });
+        } else {
+            res.status(500).json({ message: "An unknown error occurred" });
+        }
+    };
 });
 
 router.post("/signup", async (req: Request, res: Response) => {
