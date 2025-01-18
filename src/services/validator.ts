@@ -1,4 +1,3 @@
-import { User } from "../database/entities";
 import bcrypt from "bcrypt";
 
 export class PwValidator {
