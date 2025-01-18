@@ -1,6 +1,6 @@
 # Root-Kit
 
----
+
 
 ### Intro
 
@@ -23,6 +23,6 @@ My vision for Root-Kit is that it can be used for setting up backend API's very 
 
 I hope you have a lot of fun when dealing with Root-Kit, or have a good start when learning backend development with TypeScript!
 
----
+
 
 ## Have fun & stay consistent - you will achieve your goals!
