@@ -17,6 +17,18 @@ export class DefaultController {
     private readonly jwtDur = process.env.JWT_DURATION;
 
     public async signUp(email: string, password: string): Promise<User> {
+
+        const existingUser = await this.userRepo.findOne({
+            where: { email: email }
+        });
+
+        if (existingUser) {
+            throw new httpProblem.Document({
+                type: CustomErrors.Conflict,
+                title: 'User already exists',
+                status: 409
+            });
+        }
         
         if (!PwValidator.validatePw(password, email)) {
             throw new httpProblem.Document({
@@ -25,14 +37,16 @@ export class DefaultController {
                 status: 400
             });
         }
+
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPw = bcrypt.hashSync(password, salt);
         
         const user = new User();
-
         user.email = email;
-        user.password = password;
+        user.password = hashedPw;
 
         const result = await this.userRepo.save(user);
-        console.log(result);
+        console.log(result); // testing purposes
 
         if (result) {
             return result;
@@ -59,7 +73,6 @@ export class DefaultController {
         }
 
         const comparison = bcrypt.compare(password, existingUser.password);
-        const sec = this.jwtSecret as string;
 
         if (!comparison) {
             throw new httpProblem.Document({
@@ -69,8 +82,9 @@ export class DefaultController {
             });
         }
 
+        const sec = this.jwtSecret as string;
         const token = jwt.sign({ email: email }, sec, { expiresIn: this.jwtDur });
-        console.log(token);
+        console.log(token); // testing purposes
 
         return token;
     }

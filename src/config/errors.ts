@@ -3,5 +3,6 @@ export enum CustomErrors {
     NotFound = 'NotFound',
     InternalServerError = 'InternalServerError',
     Forbidden = 'Forbidden',
-    Unauthorized = 'Unauthorized'
+    Unauthorized = 'Unauthorized',
+    Conflict = 'Conflict'
 }
