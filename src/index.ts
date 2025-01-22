@@ -18,7 +18,7 @@ AppDataSource.initialize()
       console.log(`Server is running on port ${port}`);
     });
     
-    app.use("/", routes);
+    app.use("/api", routes);
   })
   .catch((err) => {
     console.log(err);

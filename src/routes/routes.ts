@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { defaultController } from "../controllers/controller";
+import { authToken } from "../middlewares/auth";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const httpProblem = require('httpproblem');
@@ -48,8 +49,22 @@ router.post("/signup", async (req: Request, res: Response) => {
     }
 });
 
-router.put("/update", (req: Request, res: Response) => {
-    res.send("Update-Endpoint");
+router.put("/update", authToken, (req: Request, res: Response) => {
+    try {
+        res.send("Update-Endpoint");
+    } catch (err) {
+        if (err instanceof httpProblem.Document) {
+            res.status(err.status).json({
+              type: err.type,
+              title: err.title,
+              status: err.status
+            });
+        } else if (err instanceof Error) {
+            res.status(500).json({ message: err.message });
+        } else {
+            res.status(500).json({ message: "An unknown error occurred" });
+        }
+    }
 });
 
 router.delete("/delete", (req: Request, res: Response) => {

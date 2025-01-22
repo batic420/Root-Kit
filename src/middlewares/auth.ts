@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { CustomErrors } from '../config/errors';
+import { JwtPayload } from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -13,21 +15,23 @@ export const authToken = (req: Request, res: Response, next: NextFunction) => {
 
     if (!token) {
         throw new httpProblem.Document({
-            type: 'Unauthorized',
+            type: CustomErrors.Unauthorized,
             title: 'Access denied. No token provided.',
             status: 401
         });
     }
 
     try {
-        const decoded = jwt.verify(token, sec);
+        const decoded = jwt.verify(token, sec) as JwtPayload;
         req.user = decoded;
         next();
     } catch (err) {
         throw new httpProblem.Document({
-            type: 'Unauthorized',
+            type: CustomErrors.Unauthorized,
             title: 'Invalid token.',
             status: 401
         });
     }
 }
+
+console.log('auth.ts loaded');
