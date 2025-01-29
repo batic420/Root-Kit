@@ -11,7 +11,7 @@ export class AuthService {
     private readonly JWT_SECRET = process.env.JWT_SECRET as string;
     private readonly OPTIONS = {
         expiresIn: process.env.JWT_DURATION,
-        algorithm: 'RS256' as Algorithm
+        algorithm: 'HS256' as Algorithm
     };
 
     public async genToken(mail: string): Promise<string> {

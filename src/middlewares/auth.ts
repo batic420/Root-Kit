@@ -10,7 +10,8 @@ dotenv.config();
 const httpProblem = require('httpproblem');
 
 export const authToken = (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization');
+    const authHeader = req.header('Authorization');
+    const token = authHeader && authHeader.split(' ')[1];
     const sec = process.env.JWT_SECRET as string;
 
     if (!token) {
