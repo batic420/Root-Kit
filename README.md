@@ -2,26 +2,23 @@
 
 
 
-### Intro
+### Definition
 
-This Project is built because i wanted a secure & efficient working backend for my api's. The goal was to set a base from where i can start building up application code. As i wanted to work on my skills especially in the backend area with typescript i've created this project to fully understand my projects, relations & stuff like this.
+Root-Kit should be your starting point when setting up a new API or learning the basics of API's and Development. It provides a solid base and implements fundamentals like routing, security features, access on a database and so on. With Root-Kit your projects have a secure and working basic framework, so you can start building application code and top and create something big!
 
 ### Basics
 
-The API works with express.js a powerful framework which takes control over routing the responses & requests. Additionaly it's very easy to understand when dealing with it for a longer time. I've learned much about it while i was working on the basics of my API.
+I'm using `express.js` for routing purposes and `typeorm` for accessing a `mysql` database. To access protected endpoints (example provided inside the `routes.ts` file) you need to validate yourself with a `jwt-token`, here you also have two already existing endpoints, which let you create new users and also login with them to generate a fresh (1h valid) token to access your private and secure endpoints.
 
-Also I wanted to rank security at a very high point, so I can ensure when working with the Root-Kit, every traffic is routed secure & the way I intended it to. So I've added a firewall (CORS) which doesn't needs much code to take care of my endpoints.
-
-Furthermore I'm proud of my database integration - when setting up the Root-Kit a mysql-db named `root_kit` will be created for you. It contains a single table named `user` which will be used for the default endpoints to signUp & create your first users for your application. I also wanted Root-Kit to be as flexible as possible so i also added the option to easily set up your own db like postgre, sqlite, ...
-For this task, I implemented a terminal integration to Root-Kit. You can simply use `root-kit --help` to see all working commands you can use. In this list you also will be able to integrate your own db with ease.
+To ensure a secure password handling for Root-Kit i've implemented `bcrypt` to en- and decrypt passwords, so they will be never stored in plaintext.
 
 ### Vision
 
-My vision for Root-Kit is that it can be used for setting up backend API's very easily & just with a few clicks (or commands in the terminal ^^) - so every developer can prioritize his application development before setting up a base from where he can start. Every API starts at the same level & also error handling won't be a big deal when working with Root-Kit.
+My vision for root-kit is that everybody who wants to start learing development (especially web- or backend-development) has a directly working, solid base and can focus on what motivates him, without having to care about routing or some other basic tasks which consume a lot of time (even for beginners).
 
 ### Conclusion
 
-I hope you have a lot of fun when dealing with Root-Kit, or have a good start when learning backend development with TypeScript!
+I hope you have a lot of fun playing around with my tool and have a great start in whatever achievement you want to accomplish!
 
 
 
