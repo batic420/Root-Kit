@@ -10,15 +10,12 @@ export class PwValidator {
 
         if (pw.length < minLength) return false;
         if (!hasNumber || !hasSpecialChar || !hasUpperCase || !hasLowerCase) return false;
-
         if (email) {
-            const lowerPw = pw.toLowerCase();
-            
+            const lowerPw = pw.toLowerCase(); 
             if (lowerPw.includes(email.toLowerCase())) {
                 return false;
                } 
         }
-
         return true;
     }
 

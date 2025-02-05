@@ -17,8 +17,8 @@ export class DbConfig {
         try {
             this.connection = await mysql.createConnection(defaultConfig);
         
-        await this.connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`);
-        await this.connection.query(`USE ${process.env.DB_NAME}`);
+        await this.connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.MYSQL_DATABASE}`);
+        await this.connection.query(`USE ${process.env.MYSQL_DATABASE}`);
         await this.connection.query(`CREATE TABLE IF NOT EXISTS user (
             id INT AUTO_INCREMENT PRIMARY KEY,
             email VARCHAR(255) NOT NULL UNIQUE,
